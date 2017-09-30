@@ -11,6 +11,8 @@ $( document ).ready(function() {
     console.log( "ready!" );
 
     var projectsDiv = $('#app-projects');
+    var stateArray =  ['active', 'postponed', 'closed'];
+    var colorState = ["label label-success right", "label label-warning right", "label label-danger right"];
 
 
     app.getProjects().then(function(projects) {
@@ -19,19 +21,8 @@ $( document ).ready(function() {
         <div class="list-group">`;
 
         $.each(projects, function(index, project) {
-
-        	if(project.State == 0) {
-                var label = `<span class="label label-success right">active</span>`;
-            }
-            else if(project.State == 1) {
-                var label = `<span class="label label-warning right">postponed</span>`;
-            }
-            else {
-                var label = `<span class="label label-danger right">closed</span>`;
-            }
-
+            var label = `<span class="` + colorState[project.State] + `">` + stateArray[project.State] + `</span>`;
             html += `<a href="#" class="list-group-item">` + project.Name + label + `</a>`;
-
         });
 
         html += `</div>`;
